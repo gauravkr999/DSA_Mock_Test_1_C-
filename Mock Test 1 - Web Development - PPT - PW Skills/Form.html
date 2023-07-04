@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Validation</title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Registration Form</h1>
+  <form id="registrationForm" onsubmit="validateForm(event)">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+    </div>
+    <br>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+    </div>
+    <br>
+    <div>
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required>
+    </div>
+    <br>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+    </div>
+    <br>
+    <div>
+      <label for="age">Age:</label>
+      <input type="number" id="age" required>
+    </div>
+    <br>
+    <div>
+      <label for="gender">Gender:</label>
+      <select id="gender" required>
+        <option value="">Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" id="date" required>
+    </div>
+    <br>
+    <div>
+      <label for="color">Favorite Color:</label>
+      <input type="color" id="color" required>
+    </div>
+    <br>
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+
+  <script>
+    function validateForm(event) {
+      event.preventDefault(); 
+      
+      
+      const errorElements = document.getElementsByClassName('error');
+      for (let i = 0; i < errorElements.length; i++) {
+        errorElements[i].innerHTML = '';
+      }
+
+      
+      const nameInput = document.getElementById('name');
+      if (nameInput.value.trim() === '') {
+        showError(nameInput, 'Name is required');
+      }
+
+      
+      const emailInput = document.getElementById('email');
+      const emailValue = emailInput.value.trim();
+      if (emailValue === '') {
+        showError(emailInput, 'Email is required');
+      } else if (!validateEmail(emailValue)) {
+        showError(emailInput, 'Invalid email format');
+      }
+
+      
+      const phoneInput = document.getElementById('phone');
+      const phoneValue = phoneInput.value.trim();
+      if (phoneValue === '') {
+        showError(phoneInput, 'Phone number is required');
+      } else if (!validatePhoneNumber(phoneValue)) {
+        showError(phoneInput, 'Invalid phone number format');
+      }
+
+      
+      const passwordInput = document.getElementById('password');
+      if (passwordInput.value.length < 6) {
+        showError(passwordInput, 'Password must be at least 6 characters long');
+      }
+
+     
+      const ageInput = document.getElementById('age');
+      const ageValue = parseInt(ageInput.value);
+      if (isNaN(ageValue) || ageValue < 18 || ageValue > 120) {
+        showError(ageInput, 'Invalid age');
+      }
+
+      
+      const genderInput = document.getElementById('gender');
+      if (genderInput.value === '') {
+        showError(genderInput, 'Gender is required');
+      }
+
+      
+      const dateInput = document.getElementById('date');
+      if (dateInput.value === '') {
+        showError(dateInput, 'Date is required');
+      }
+
+      
+      const colorInput = document.getElementById('color');
+      if (colorInput.value === '') {
+        showError(colorInput, 'Color is required');
+      }
+
+      
+      if (document.getElementsByClassName('error').length === 0) {
+        document.getElementById('registrationForm').submit();
+      }
+    }
+
+    function showError(inputElement, errorMessage) {
+      const errorElement = document.createElement('div');
+      errorElement.className = 'error';
+      errorElement.innerHTML = errorMessage;
+      inputElement.parentNode.insertBefore(errorElement, inputElement.nextSibling);
+    }
+
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function validatePhoneNumber(phoneNumber) {
+      const phoneRegex = /^\d{10}$/; 
+      return phoneRegex.test(phoneNumber);
+    }
+  </script>
+</body>
+</html>
+
+
+
