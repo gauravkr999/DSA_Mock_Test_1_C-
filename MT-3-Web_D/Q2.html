@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Input Box App</title>
+  <style>
+    #input-container {
+      margin-top: 20px;
+    }
+    #input-text {
+      margin-right: 10px;
+    }
+    #submit-button {
+      margin-top: 10px;
+    }
+    #output-container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="input-container">
+    <input type="text" id="input-text" placeholder="Enter something">
+    <button id="submit-button">Submit</button>
+  </div>
+  <div id="output-container"></div>
+
+  <script>
+    
+    var inputTextElement = document.getElementById('input-text');
+    var submitButtonElement = document.getElementById('submit-button');
+    var outputContainerElement = document.getElementById('output-container');
+
+    
+    function handleSubmitButtonClick() {
+      
+      var inputValue = inputTextElement.value;
+
+      
+      var newParagraph = document.createElement('p');
+      newParagraph.textContent = inputValue;
+
+      
+      outputContainerElement.appendChild(newParagraph);
+
+      
+      inputTextElement.value = '';
+    }
+
+    
+    submitButtonElement.addEventListener('click', handleSubmitButtonClick);
+  </script>
+</body>
+</html>
